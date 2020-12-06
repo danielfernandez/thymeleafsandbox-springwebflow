@@ -23,44 +23,53 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @Configuration
 public class WebFlowWithMvcConfig extends AbstractFlowConfiguration {
 
-	@Autowired
-	private LocalValidatorFactoryBean localValidatorFacotryBean;
+	/*
+     * For the basics on how this configuration is meant to be made, have a look at
+     * https://docs.spring.io/spring-webflow/docs/2.5.1.RELEASE/reference/html/system-setup.html
+	 */
+
+	private LocalValidatorFactoryBean localValidatorFactoryBean;
+
+
+	public WebFlowWithMvcConfig(final LocalValidatorFactoryBean localValidatorFactoryBean) {
+		super();
+		this.localValidatorFactoryBean = localValidatorFactoryBean;
+	}
+
 
 	@Bean
 	public FlowDefinitionRegistry flowRegistry() {
-		return getFlowDefinitionRegistryBuilder() //
-				.setBasePath("classpath:flows") //
-				.addFlowLocationPattern("/**/*-flow.xml") //
-				.setFlowBuilderServices(this.flowBuilderServices()) //
+		return getFlowDefinitionRegistryBuilder()
+				.setBasePath("classpath:flows")
+				.addFlowLocationPattern("/**/*-flow.xml")
+				.setFlowBuilderServices(flowBuilderServices())
 				.build();
 	}
 
 	@Bean
 	public FlowExecutor flowExecutor() {
-		return getFlowExecutorBuilder(this.flowRegistry()) //
-				.build();
+		return getFlowExecutorBuilder(flowRegistry()).build();
 	}
 
 	@Bean
 	public FlowBuilderServices flowBuilderServices() {
 		return getFlowBuilderServicesBuilder() //
-				.setViewFactoryCreator(this.mvcViewFactoryCreator()) // Important!
-				.setValidator(this.localValidatorFacotryBean).build();
+				.setViewFactoryCreator(mvcViewFactoryCreator())
+				.setValidator(this.localValidatorFactoryBean).build();
 	}
-	// ----------------------------------------------------------
 
 	@Bean
 	public FlowHandlerMapping flowHandlerMapping() {
 		FlowHandlerMapping handlerMapping = new FlowHandlerMapping();
 		handlerMapping.setOrder(-1);
-		handlerMapping.setFlowRegistry(this.flowRegistry());
+		handlerMapping.setFlowRegistry(flowRegistry());
 		return handlerMapping;
 	}
 
 	@Bean
 	public FlowHandlerAdapter flowHandlerAdapter() {
 		FlowHandlerAdapter handlerAdapter = new FlowHandlerAdapter();
-		handlerAdapter.setFlowExecutor(this.flowExecutor());
+		handlerAdapter.setFlowExecutor(flowExecutor());
 		handlerAdapter.setSaveOutputToFlashScopeOnRedirect(true);
 		return handlerAdapter;
 	}
@@ -68,7 +77,7 @@ public class WebFlowWithMvcConfig extends AbstractFlowConfiguration {
 	@Bean
 	public ViewFactoryCreator mvcViewFactoryCreator() {
 		MvcViewFactoryCreator factoryCreator = new MvcViewFactoryCreator();
-		factoryCreator.setViewResolvers(Collections.singletonList(this.thymeleafViewResolver()));
+		factoryCreator.setViewResolvers(Collections.singletonList(thymeleafViewResolver()));
 		factoryCreator.setUseSpringBeanBinding(true);
 		return factoryCreator;
 	}
@@ -78,7 +87,7 @@ public class WebFlowWithMvcConfig extends AbstractFlowConfiguration {
 	public AjaxThymeleafViewResolver thymeleafViewResolver() {
 		AjaxThymeleafViewResolver viewResolver = new AjaxThymeleafViewResolver();
 		viewResolver.setViewClass(FlowAjaxThymeleafView.class);
-		viewResolver.setTemplateEngine(this.templateEngine());
+		viewResolver.setTemplateEngine(templateEngine());
 		viewResolver.setCharacterEncoding("UTF-8");
 		return viewResolver;
 	}
@@ -99,7 +108,8 @@ public class WebFlowWithMvcConfig extends AbstractFlowConfiguration {
 	@Description("Thymeleaf template engine with Spring integration")
 	public SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver(this.templateResolver());
+		templateEngine.setTemplateResolver(templateResolver());
 		return templateEngine;
 	}
+
 }
