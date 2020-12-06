@@ -1,12 +1,11 @@
 package com.example.demo.handlers;
 
-import org.springframework.binding.message.MessageBuilder;
-import org.springframework.binding.message.MessageContext;
-import org.springframework.stereotype.Component;
-
 import com.example.demo.models.BillingInfo;
 import com.example.demo.models.PersonalInfo;
 import com.example.demo.models.RegisterModel;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
+import org.springframework.stereotype.Component;
 
 @Component
 public class RegisterHandler {
