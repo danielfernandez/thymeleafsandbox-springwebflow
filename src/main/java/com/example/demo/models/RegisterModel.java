@@ -13,7 +13,7 @@ public class RegisterModel implements Serializable {
 		return personalInfo;
 	}
 
-	public void setPersonalInfo(PersonalInfo personalInfo) {
+	public void setPersonalInfo(final PersonalInfo personalInfo) {
 		this.personalInfo = personalInfo;
 	}
 
@@ -21,7 +21,7 @@ public class RegisterModel implements Serializable {
 		return billingInfo;
 	}
 
-	public void setBillingInfo(BillingInfo billingInfo) {
+	public void setBillingInfo(final BillingInfo billingInfo) {
 		this.billingInfo = billingInfo;
 	}
 }

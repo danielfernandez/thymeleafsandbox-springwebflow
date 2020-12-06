@@ -45,7 +45,7 @@ public class PersonalInfo implements Serializable {
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(final String username) {
 		this.username = username;
 	}
 
@@ -53,7 +53,7 @@ public class PersonalInfo implements Serializable {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -61,7 +61,7 @@ public class PersonalInfo implements Serializable {
 		return confirmPassword;
 	}
 
-	public void setConfirmPassword(String confirmPassword) {
+	public void setConfirmPassword(final String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
 
@@ -69,7 +69,7 @@ public class PersonalInfo implements Serializable {
 		return firstname;
 	}
 
-	public void setFirstname(String firstname) {
+	public void setFirstname(final String firstname) {
 		this.firstname = firstname;
 	}
 
@@ -77,7 +77,11 @@ public class PersonalInfo implements Serializable {
 		return lastname;
 	}
 
-	public void setLastname(String lastname) {
+	public void setLastname(final String lastname) {
 		this.lastname = lastname;
+	}
+
+	public String getName() {
+		return String.format("%s %s", this.firstname, this.lastname);
 	}
 }

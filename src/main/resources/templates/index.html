@@ -12,6 +12,17 @@
 				<a th:href="@{/register}">Sign Up</a>
 			</div>
 		</div>
+		<div class="row">
+			<table class="col-md-12">
+				<tbody>
+					<tr th:each="r : ${registers}">
+						<td th:text="${r.personalInfo.username}"></td>
+						<td th:text="${r.personalInfo.name}"></td>
+						<td th:text="${r.billingInfo.address}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<script th:replace="fragments/scripts :: scripts"></script>
 </body>

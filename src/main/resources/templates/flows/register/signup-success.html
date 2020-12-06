@@ -9,10 +9,7 @@
 			<div class="col-xs-12">
 				<h1>Success Page :)</h1>
 				<hr />
-				
-				
-				
-				<a th:href="@{'~' + ${flowExecutionUrl} + '&_eventId_home'}">Home</a>
+				<a th:href="@{|~${flowExecutionUrl}&_eventId_home|}">Home</a>
 			</div>
 		</div>
 	</div>

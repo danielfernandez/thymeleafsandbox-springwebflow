@@ -15,7 +15,7 @@ public class BillingInfo implements Serializable {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(final String address) {
 		this.address = address;
 	}
 }
