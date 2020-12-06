@@ -52,9 +52,10 @@ public class WebFlowWithMvcConfig extends AbstractFlowConfiguration {
 
 	@Bean
 	public FlowBuilderServices flowBuilderServices() {
-		return getFlowBuilderServicesBuilder() //
+		return getFlowBuilderServicesBuilder()
 				.setViewFactoryCreator(mvcViewFactoryCreator())
-				.setValidator(this.localValidatorFactoryBean).build();
+				.setValidator(this.localValidatorFactoryBean)
+				.build();
 	}
 
 	@Bean
